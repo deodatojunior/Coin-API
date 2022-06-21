@@ -8,7 +8,7 @@
 docker-compose up
 ```
 
-##E acesse esse link:
+## E acesse esse link:
 
 ```
 http://localhost:8000/
