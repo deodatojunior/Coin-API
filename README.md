@@ -18,3 +18,4 @@ http://localhost:8000/
 
 - [Documentação do projeto](docs/Insomnia_2022-06-21.yaml)
 
+- Para facilitar, importe esse documento dentro de um aplicativo de testes, como Insomnia ou Postman. E utilize a vontade.
