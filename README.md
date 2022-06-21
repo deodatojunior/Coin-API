@@ -4,15 +4,15 @@
 
 # Com o Docker rodando, vá para a pasta do projeto e digite no terminal dentro da pasta:
 
-´´´
+```
 docker-compose up
-´´´
+```
 
 ##E acesse esse link:
 
-´´´
+```
 http://localhost:8000/
-´´´
+```
 
 ## Documentação do projeto aqui:
 
