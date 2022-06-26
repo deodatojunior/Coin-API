@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>API de cotação de moedas</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <style>
+      html, body {
+      display: flex;
+      justify-content: center;
+      height: 100%;
+      }
+      body, div, h1, form, input, p {
+      padding: 0;
+      margin: 0;
+      outline: none;
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 16px;
+      color: #666;
+      }
+      h1 {
+      padding: 10px 0;
+      font-size: 32px;
+      font-weight: 300;
+      text-align: center;
+      }
+      p {
+      font-size: 12px;
+      }
+      hr {
+      color: #a9a9a9;
+      opacity: 0.3;
+      }
+      .main-block {
+      max-width: 340px;
+      min-height: 460px;
+      padding: 10px 0;
+      margin: auto;
+      border-radius: 5px;
+      border: solid 1px #ccc;
+      box-shadow: 1px 2px 5px rgba(0,0,0,.31);
+      background: #ebebeb;
+      }
+      form {
+      margin: 0 30px;
+      }
+      .account-type, .gender {
+      margin: 15px 0;
+      }
+      input[type=radio] {
+      display: none;
+      }
+      label#icon {
+      margin: 0;
+      border-radius: 5px 0 0 5px;
+      }
+      label.radio {
+      position: relative;
+      display: inline-block;
+      padding-top: 4px;
+      margin-right: 20px;
+      text-indent: 30px;
+      overflow: visible;
+      cursor: pointer;
+      }
+      label.radio:before {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #1c87c9;
+      }
+      label.radio:after {
+      content: "";
+      position: absolute;
+      width: 9px;
+      height: 4px;
+      top: 8px;
+      left: 4px;
+      border: 3px solid #fff;
+      border-top: none;
+      border-right: none;
+      transform: rotate(-45deg);
+      opacity: 0;
+      }
+      input[type=radio]:checked + label:after {
+      opacity: 1;
+      }
+      input {
+      width: calc(100% - 10px);
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      vertical-align: middle;
+      }
+      input:hover, textarea:hover, select:hover {
+      outline: none;
+      border: 1px solid #095484;
+      background: #e6eef7;
+      }
+      input[type=password] {
+      margin-bottom: 15px;
+      }
+      #icon {
+      display: inline-block;
+      padding: 9.3px 15px;
+      box-shadow: 1px 2px 5px rgba(0,0,0,.09);
+      background: #1c87c9;
+      color: #fff;
+      text-align: center;
+      }
+       select {
+      padding: 7px 0;
+      border-radius: 3px;
+      border: 1px solid #ccc;
+      background: transparent;
+      }
+      select, table {
+      width: 100%;
+      }
+      .btn-block {
+      margin-top: 10px;
+      text-align: center;
+      }
+      button {
+      width: 100%;
+      padding: 10px 0;
+      margin: 10px auto;
+      border-radius: 5px;
+      border: none;
+      background: #1c87c9;
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      }
+      button:hover {
+      background: #26a9e0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-block">
+      <h1>API de cotação de moedas</h1>
+      <form method="post">
+        {% csrf_token %}
+         <select name="code">
+                <option selected value="">Código da cotação</option>
+                <option value="USD-BRL">USD-BRL</option>
+                <option value="USD-BRLT">USD-BRLT</option>
+                <option value="CAD-BRL">CAD-BRL</option>
+                <option value="EUR-BRL">EUR-BRL</option>
+                <option value="GBP-BRL">GBP-BRL</option>
+                <option value="ARS-BRL">ARS-BRL</option>
+                <option value="BTC-BRL">BTC-BRL</option>
+                <option value="LTC-BRL">LTC-BRL</option>
+                <option value="JPY-BRL">JPY-BRL</option>
+                <option value="CHF-BRL">CHF-BRL</option>
+                <option value="AUD-BRL">AUD-BRL</option>
+                <option value="CNY-BRL">CNY-BRL</option>
+                <option value="ILS-BRL">ILS-BRL</option>
+                <option value="ETH-BRL">ETH-BRL</option>
+                <option value="XRP-BRL">XRP-BRL</option>
+                <option value="EUR-USD">EUR-USD</option>
+                <option value="CAD-USD">CAD-USD</option>
+                <option value="GBP-USD">GBP-USD</option>
+                <option value="ARS-USD">ARS-USD</option>
+                <option value="JPY-USD">JPY-USD</option>
+                <option value="CHF-USD">CHF-USD</option>
+                <option value="AUD-USD">AUD-USD</option>
+                <option value="CNY-USD">CNY-USD</option>
+                <option value="ILS-USD">ILS-USD</option>
+                <option value="BTC-USD">BTC-USD</option>
+                <option value="LTC-USD">LTC-USD</option>
+                <option value="ETH-USD">ETH-USD</option>
+                <option value="XRP-USD">XRP-USD</option>
+                <option value="BRL-USD">BRL-USD</option>
+                <option value="BRL-EUR">BRL-EUR</option>
+                <option value="USD-EUR">USD-EUR</option>
+                <option value="CAD-EUR">CAD-EUR</option>
+                <option value="GBP-EUR">GBP-EUR</option>
+                <option value="ARS-EUR">ARS-EUR</option>
+                <option value="JPY-EUR">JPY-EUR</option>
+                <option value="CHF-EUR">CHF-EUR</option>
+                <option value="AUD-EUR">AUD-EUR</option>
+                <option value="CNY-EUR">CNY-EUR</option>
+                <option value="ILS-EUR">ILS-EUR</option>
+                <option value="BTC-EUR">BTC-EUR</option>
+                <option value="LTC-EUR">LTC-EUR</option>
+                <option value="ETH-EUR">ETH-EUR</option>
+                <option value="XRP-EUR">XRP-EUR</option>
+                <option value="DOGE-BRL">DOGE-BRL</option>
+                <option value="DOGE-EUR">DOGE-EUR</option>
+                <option value="DOGE-USD">DOGE-USD</option>
+                <option value="USD-JPY">USD-JPY</option>
+                <option value="USD-CHF">USD-CHF</option>
+                <option value="USD-CAD">USD-CAD</option>
+                <option value="NZD-USD">NZD-USD</option>
+                <option value="USD-ZAR">USD-ZAR</option>
+                <option value="USD-TRY">USD-TRY</option>
+                <option value="USD-MXN">USD-MXN</option>
+                <option value="USD-PLN">USD-PLN</option>
+                <option value="USD-SEK">USD-SEK</option>
+                <option value="USD-SGD">USD-SGD</option>
+                <option value="USD-DKK">USD-DKK</option>
+                <option value="USD-NOK">USD-NOK</option>
+                <option value="USD-ILS">USD-ILS</option>
+                <option value="USD-HUF">USD-HUF</option>
+                <option value="USD-CZK">USD-CZK</option>
+                <option value="USD-THB">USD-THB</option>
+                <option value="USD-AED">USD-AED</option>
+                <option value="USD-JOD">USD-JOD</option>
+                <option value="USD-KWD">USD-KWD</option>
+                <option value="USD-HKD">USD-HKD</option>
+                <option value="USD-SAR">USD-SAR</option>
+                <option value="USD-INR">USD-INR</option>
+                <option value="USD-KRW">USD-KRW</option>
+                <option value="FJD-USD">FJD-USD</option>
+                <option value="GHS-USD">GHS-USD</option>
+                <option value="KYD-USD">KYD-USD</option>
+                <option value="SGD-USD">SGD-USD</option>
+                <option value="USD-ALL">USD-ALL</option>
+                <option value="USD-AMD">USD-AMD</option>
+                <option value="USD-ANG">USD-ANG</option>
+                <option value="USD-ARS">USD-ARS</option>
+                <option value="USD-AUD">USD-AUD</option>
+                <option value="USD-BBD">USD-BBD</option>
+                <option value="USD-BDT">USD-BDT</option>
+                <option value="USD-BGN">USD-BGN</option>
+                <option value="USD-BHD">USD-BHD</option>
+                <option value="USD-BIF">USD-BIF</option>
+                <option value="USD-BND">USD-BND</option>
+                <option value="USD-BOB">USD-BOB</option>
+                <option value="USD-BSD">USD-BSD</option>
+                <option value="USD-BWP">USD-BWP</option>
+                <option value="USD-BZD">USD-BZD</option>
+                <option value="USD-CLP">USD-CLP</option>
+                <option value="USD-CNY">USD-CNY</option>
+                <option value="USD-COP">USD-COP</option>
+                <option value="USD-CRC">USD-CRC</option>
+                <option value="USD-CUP">USD-CUP</option>
+                <option value="USD-DJF">USD-DJF</option>
+                <option value="USD-DOP">USD-DOP</option>
+                <option value="USD-DZD">USD-DZD</option>
+                <option value="USD-EGP">USD-EGP</option>
+                <option value="USD-ETB">USD-ETB</option>
+                <option value="USD-FJD">USD-FJD</option>
+                <option value="USD-GBP">USD-GBP</option>
+                <option value="USD-GEL">USD-GEL</option>
+                <option value="USD-GHS">USD-GHS</option>
+                <option value="USD-GMD">USD-GMD</option>
+                <option value="USD-GNF">USD-GNF</option>
+                <option value="USD-GTQ">USD-GTQ</option>
+                <option value="USD-HNL">USD-HNL</option>
+                <option value="USD-HRK">USD-HRK</option>
+                <option value="USD-HTG">USD-HTG</option>
+                <option value="USD-IDR">USD-IDR</option>
+                <option value="USD-IQD">USD-IQD</option>
+                <option value="USD-IRR">USD-IRR</option>
+                <option value="USD-ISK">USD-ISK</option>
+                <option value="USD-JMD">USD-JMD</option>
+                <option value="USD-KES">USD-KES</option>
+                <option value="USD-KHR">USD-KHR</option>
+                <option value="USD-KMF">USD-KMF</option>
+                <option value="USD-KZT">USD-KZT</option>
+                <option value="USD-LAK">USD-LAK</option>
+                <option value="USD-LBP">USD-LBP</option>
+                <option value="USD-LKR">USD-LKR</option>
+                <option value="USD-LSL">USD-LSL</option>
+                <option value="USD-LYD">USD-LYD</option>
+                <option value="USD-MAD">USD-MAD</option>
+                <option value="USD-MDL">USD-MDL</option>
+                <option value="USD-MGA">USD-MGA</option>
+                <option value="USD-MKD">USD-MKD</option>
+                <option value="USD-MMK">USD-MMK</option>
+                <option value="USD-MOP">USD-MOP</option>
+                <option value="USD-MRO">USD-MRO</option>
+                <option value="USD-MUR">USD-MUR</option>
+                <option value="USD-MVR">USD-MVR</option>
+                <option value="USD-MWK">USD-MWK</option>
+                <option value="USD-MYR">USD-MYR</option>
+                <option value="USD-NAD">USD-NAD</option>
+                <option value="USD-NGN">USD-NGN</option>
+                <option value="USD-NIO">USD-NIO</option>
+                <option value="USD-NPR">USD-NPR</option>
+                <option value="USD-NZD">USD-NZD</option>
+                <option value="USD-OMR">USD-OMR</option>
+                <option value="USD-PAB">USD-PAB</option>
+                <option value="USD-PEN">USD-PEN</option>
+                <option value="USD-PGK">USD-PGK</option>
+                <option value="USD-PHP">USD-PHP</option>
+                <option value="USD-PKR">USD-PKR</option>
+                <option value="USD-PYG">USD-PYG</option>
+                <option value="USD-QAR">USD-QAR</option>
+                <option value="USD-RON">USD-RON</option>
+                <option value="USD-RSD">USD-RSD</option>
+                <option value="USD-RWF">USD-RWF</option>
+                <option value="USD-SCR">USD-SCR</option>
+                <option value="USD-SDG">USD-SDG</option>
+                <option value="USD-SOS">USD-SOS</option>
+                <option value="USD-STD">USD-STD</option>
+                <option value="USD-SVC">USD-SVC</option>
+                <option value="USD-SYP">USD-SYP</option>
+                <option value="USD-SZL">USD-SZL</option>
+                <option value="USD-TND">USD-TND</option>
+                <option value="USD-TTD">USD-TTD</option>
+                <option value="USD-TWD">USD-TWD</option>
+                <option value="USD-TZS">USD-TZS</option>
+                <option value="USD-UAH">USD-UAH</option>
+                <option value="USD-UGX">USD-UGX</option>
+                <option value="USD-UYU">USD-UYU</option>
+                <option value="USD-UZS">USD-UZS</option>
+                <option value="USD-VEF">USD-VEF</option>
+                <option value="USD-VND">USD-VND</option>
+                <option value="USD-VUV">USD-VUV</option>
+                <option value="USD-XAF">USD-XAF</option>
+                <option value="USD-XCD">USD-XCD</option>
+                <option value="USD-XOF">USD-XOF</option>
+                <option value="USD-XPF">USD-XPF</option>
+                <option value="USD-YER">USD-YER</option>
+                <option value="USD-ZMK">USD-ZMK</option>
+                <option value="AED-USD">AED-USD</option>
+                <option value="DKK-USD">DKK-USD</option>
+                <option value="HKD-USD">HKD-USD</option>
+                <option value="MXN-USD">MXN-USD</option>
+                <option value="NOK-USD">NOK-USD</option>
+                <option value="PLN-USD">PLN-USD</option>
+                <option value="RUB-USD">RUB-USD</option>
+                <option value="SAR-USD">SAR-USD</option>
+                <option value="SEK-USD">SEK-USD</option>
+                <option value="TRY-USD">TRY-USD</option>
+                <option value="TWD-USD">TWD-USD</option>
+                <option value="ZAR-USD">ZAR-USD</option>
+                <option value="UYU-USD">UYU-USD</option>
+                <option value="PYG-USD">PYG-USD</option>
+                <option value="CLP-USD">CLP-USD</option>
+                <option value="COP-USD">COP-USD</option>
+                <option value="PEN-USD">PEN-USD</option>
+                <option value="NIO-USD">NIO-USD</option>
+                <option value="BOB-USD">BOB-USD</option>
+                <option value="KRW-USD">KRW-USD</option>
+                <option value="EGP-USD">EGP-USD</option>
+                <option value="USD-BYN">USD-BYN</option>
+                <option value="USD-MZN">USD-MZN</option>
+                <option value="INR-USD">INR-USD</option>
+                <option value="JOD-USD">JOD-USD</option>
+                <option value="KWD-USD">KWD-USD</option>
+                <option value="USD-AZN">USD-AZN</option>
+                <option value="USD-CNH">USD-CNH</option>
+                <option value="USD-KGS">USD-KGS</option>
+                <option value="USD-TJS">USD-TJS</option>
+                <option value="USD-RUB">USD-RUB</option>
+                <option value="MYR-USD">MYR-USD</option>
+                <option value="UAH-USD">UAH-USD</option>
+                <option value="HUF-USD">HUF-USD</option>
+                <option value="IDR-USD">IDR-USD</option>
+                <option value="USD-AOA">USD-AOA</option>
+                <option value="VND-USD">VND-USD</option>
+                <option value="BYN-USD">BYN-USD</option>
+                <option value="XBR-USD">XBR-USD</option>
+                <option value="THB-USD">THB-USD</option>
+                <option value="PHP-USD">PHP-USD</option>
+                <option value="USD-TMT">USD-TMT</option>
+                <option value="XAGG-USD">XAGG-USD</option>
+                <option value="USD-MNT">USD-MNT</option>
+                <option value="USD-AFN">USD-AFN</option>
+                <option value="AFN-USD">AFN-USD</option>
+                <option value="SYP-USD">SYP-USD</option>
+                <option value="IRR-USD">IRR-USD</option>
+                <option value="IQD-USD">IQD-USD</option>
+                <option value="USD-NGNI">USD-NGNI</option>
+                <option value="USD-ZWL">USD-ZWL</option>
+                <option value="BRL-ARS">BRL-ARS</option>
+                <option value="BRL-AUD">BRL-AUD</option>
+                <option value="BRL-CAD">BRL-CAD</option>
+                <option value="BRL-CHF">BRL-CHF</option>
+                <option value="BRL-CLP">BRL-CLP</option>
+                <option value="BRL-DKK">BRL-DKK</option>
+                <option value="BRL-HKD">BRL-HKD</option>
+                <option value="BRL-JPY">BRL-JPY</option>
+                <option value="BRL-MXN">BRL-MXN</option>
+                <option value="BRL-SGD">BRL-SGD</option>
+                <option value="SGD-BRL">SGD-BRL</option>
+                <option value="AED-BRL">AED-BRL</option>
+                <option value="BRL-AED">BRL-AED</option>
+                <option value="BRL-BBD">BRL-BBD</option>
+                <option value="BRL-BHD">BRL-BHD</option>
+                <option value="BRL-CNY">BRL-CNY</option>
+                <option value="BRL-CZK">BRL-CZK</option>
+                <option value="BRL-EGP">BRL-EGP</option>
+                <option value="BRL-GBP">BRL-GBP</option>
+                <option value="BRL-HUF">BRL-HUF</option>
+                <option value="BRL-IDR">BRL-IDR</option>
+                <option value="BRL-ILS">BRL-ILS</option>
+                <option value="BRL-INR">BRL-INR</option>
+                <option value="BRL-ISK">BRL-ISK</option>
+                <option value="BRL-JMD">BRL-JMD</option>
+                <option value="BRL-JOD">BRL-JOD</option>
+                <option value="BRL-KES">BRL-KES</option>
+                <option value="BRL-KRW">BRL-KRW</option>
+                <option value="BRL-LBP">BRL-LBP</option>
+                <option value="BRL-LKR">BRL-LKR</option>
+                <option value="BRL-MAD">BRL-MAD</option>
+                <option value="BRL-MYR">BRL-MYR</option>
+                <option value="BRL-NAD">BRL-NAD</option>
+                <option value="BRL-NOK">BRL-NOK</option>
+                <option value="BRL-NPR">BRL-NPR</option>
+                <option value="BRL-NZD">BRL-NZD</option>
+                <option value="BRL-OMR">BRL-OMR</option>
+                <option value="BRL-PAB">BRL-PAB</option>
+                <option value="BRL-PHP">BRL-PHP</option>
+                <option value="BRL-PKR">BRL-PKR</option>
+                <option value="BRL-PLN">BRL-PLN</option>
+                <option value="BRL-QAR">BRL-QAR</option>
+                <option value="BRL-RON">BRL-RON</option>
+                <option value="BRL-RUB">BRL-RUB</option>
+                <option value="BRL-SAR">BRL-SAR</option>
+                <option value="BRL-SEK">BRL-SEK</option>
+                <option value="BRL-THB">BRL-THB</option>
+                <option value="BRL-TRY">BRL-TRY</option>
+                <option value="BRL-VEF">BRL-VEF</option>
+                <option value="BRL-XAF">BRL-XAF</option>
+                <option value="BRL-XCD">BRL-XCD</option>
+                <option value="BRL-XOF">BRL-XOF</option>
+                <option value="BRL-ZAR">BRL-ZAR</option>
+                <option value="BRL-TWD">BRL-TWD</option>
+                <option value="DKK-BRL">DKK-BRL</option>
+                <option value="HKD-BRL">HKD-BRL</option>
+                <option value="MXN-BRL">MXN-BRL</option>
+                <option value="NOK-BRL">NOK-BRL</option>
+                <option value="NZD-BRL">NZD-BRL</option>
+                <option value="PLN-BRL">PLN-BRL</option>
+                <option value="SAR-BRL">SAR-BRL</option>
+                <option value="SEK-BRL">SEK-BRL</option>
+                <option value="THB-BRL">THB-BRL</option>
+                <option value="TRY-BRL">TRY-BRL</option>
+                <option value="TWD-BRL">TWD-BRL</option>
+                <option value="ZAR-BRL">ZAR-BRL</option>
+                <option value="BRL-PYG">BRL-PYG</option>
+                <option value="BRL-UYU">BRL-UYU</option>
+                <option value="BRL-COP">BRL-COP</option>
+                <option value="BRL-PEN">BRL-PEN</option>
+                <option value="BRL-BOB">BRL-BOB</option>
+                <option value="CLP-BRL">CLP-BRL</option>
+                <option value="PYG-BRL">PYG-BRL</option>
+                <option value="UYU-BRL">UYU-BRL</option>
+                <option value="COP-BRL">COP-BRL</option>
+                <option value="PEN-BRL">PEN-BRL</option>
+                <option value="BOB-BRL">BOB-BRL</option>
+                <option value="RUB-BRL">RUB-BRL</option>
+                <option value="INR-BRL">INR-BRL</option>
+                <option value="EUR-GBP">EUR-GBP</option>
+                <option value="EUR-JPY">EUR-JPY</option>
+                <option value="EUR-CHF">EUR-CHF</option>
+                <option value="EUR-AUD">EUR-AUD</option>
+                <option value="EUR-CAD">EUR-CAD</option>
+                <option value="EUR-NOK">EUR-NOK</option>
+                <option value="EUR-DKK">EUR-DKK</option>
+                <option value="EUR-PLN">EUR-PLN</option>
+                <option value="EUR-NZD">EUR-NZD</option>
+                <option value="EUR-SEK">EUR-SEK</option>
+                <option value="EUR-ILS">EUR-ILS</option>
+                <option value="EUR-TRY">EUR-TRY</option>
+                <option value="EUR-THB">EUR-THB</option>
+                <option value="EUR-ZAR">EUR-ZAR</option>
+                <option value="EUR-MXN">EUR-MXN</option>
+                <option value="EUR-SGD">EUR-SGD</option>
+                <option value="EUR-HUF">EUR-HUF</option>
+                <option value="EUR-HKD">EUR-HKD</option>
+                <option value="EUR-CZK">EUR-CZK</option>
+                <option value="EUR-KRW">EUR-KRW</option>
+                <option value="BHD-EUR">BHD-EUR</option>
+                <option value="EUR-AED">EUR-AED</option>
+                <option value="EUR-AFN">EUR-AFN</option>
+                <option value="EUR-ALL">EUR-ALL</option>
+                <option value="EUR-ANG">EUR-ANG</option>
+                <option value="EUR-ARS">EUR-ARS</option>
+                <option value="EUR-BAM">EUR-BAM</option>
+                <option value="EUR-BBD">EUR-BBD</option>
+                <option value="EUR-BDT">EUR-BDT</option>
+                <option value="EUR-BGN">EUR-BGN</option>
+                <option value="EUR-BHD">EUR-BHD</option>
+                <option value="EUR-BIF">EUR-BIF</option>
+                <option value="EUR-BND">EUR-BND</option>
+                <option value="EUR-BOB">EUR-BOB</option>
+                <option value="EUR-BSD">EUR-BSD</option>
+                <option value="EUR-BWP">EUR-BWP</option>
+                <option value="EUR-BYN">EUR-BYN</option>
+                <option value="EUR-BZD">EUR-BZD</option>
+                <option value="EUR-CLP">EUR-CLP</option>
+                <option value="EUR-CNY">EUR-CNY</option>
+                <option value="EUR-COP">EUR-COP</option>
+                <option value="EUR-CRC">EUR-CRC</option>
+                <option value="EUR-CUP">EUR-CUP</option>
+                <option value="EUR-CVE">EUR-CVE</option>
+                <option value="EUR-DJF">EUR-DJF</option>
+                <option value="EUR-DOP">EUR-DOP</option>
+                <option value="EUR-DZD">EUR-DZD</option>
+                <option value="EUR-EGP">EUR-EGP</option>
+                <option value="EUR-ETB">EUR-ETB</option>
+                <option value="EUR-FJD">EUR-FJD</option>
+                <option value="EUR-GHS">EUR-GHS</option>
+                <option value="EUR-GMD">EUR-GMD</option>
+                <option value="EUR-GNF">EUR-GNF</option>
+                <option value="EUR-GTQ">EUR-GTQ</option>
+                <option value="EUR-HNL">EUR-HNL</option>
+                <option value="EUR-HRK">EUR-HRK</option>
+                <option value="EUR-HTG">EUR-HTG</option>
+                <option value="EUR-IDR">EUR-IDR</option>
+                <option value="EUR-INR">EUR-INR</option>
+                <option value="EUR-IQD">EUR-IQD</option>
+                <option value="EUR-IRR">EUR-IRR</option>
+                <option value="EUR-ISK">EUR-ISK</option>
+                <option value="EUR-JMD">EUR-JMD</option>
+                <option value="EUR-JOD">EUR-JOD</option>
+                <option value="EUR-KES">EUR-KES</option>
+                <option value="EUR-KHR">EUR-KHR</option>
+                <option value="EUR-KWD">EUR-KWD</option>
+                <option value="EUR-KYD">EUR-KYD</option>
+                <option value="EUR-KZT">EUR-KZT</option>
+                <option value="EUR-LAK">EUR-LAK</option>
+                <option value="EUR-LBP">EUR-LBP</option>
+                <option value="EUR-LKR">EUR-LKR</option>
+                <option value="EUR-LSL">EUR-LSL</option>
+                <option value="EUR-LYD">EUR-LYD</option>
+                <option value="EUR-MAD">EUR-MAD</option>
+                <option value="EUR-MDL">EUR-MDL</option>
+                <option value="EUR-MGA">EUR-MGA</option>
+                <option value="EUR-MKD">EUR-MKD</option>
+                <option value="EUR-MMK">EUR-MMK</option>
+                <option value="EUR-MOP">EUR-MOP</option>
+                <option value="EUR-MRO">EUR-MRO</option>
+                <option value="EUR-MUR">EUR-MUR</option>
+                <option value="EUR-MWK">EUR-MWK</option>
+                <option value="EUR-MYR">EUR-MYR</option>
+                <option value="EUR-NAD">EUR-NAD</option>
+                <option value="EUR-NGN">EUR-NGN</option>
+                <option value="EUR-NIO">EUR-NIO</option>
+                <option value="EUR-NPR">EUR-NPR</option>
+                <option value="EUR-OMR">EUR-OMR</option>
+                <option value="EUR-PAB">EUR-PAB</option>
+                <option value="EUR-PEN">EUR-PEN</option>
+                <option value="EUR-PGK">EUR-PGK</option>
+                <option value="EUR-PHP">EUR-PHP</option>
+                <option value="EUR-PKR">EUR-PKR</option>
+                <option value="EUR-PYG">EUR-PYG</option>
+                <option value="EUR-QAR">EUR-QAR</option>
+                <option value="EUR-RON">EUR-RON</option>
+                <option value="EUR-RSD">EUR-RSD</option>
+                <option value="EUR-RWF">EUR-RWF</option>
+                <option value="EUR-SAR">EUR-SAR</option>
+                <option value="EUR-SCR">EUR-SCR</option>
+                <option value="EUR-SDG">EUR-SDG</option>
+                <option value="EUR-SDR">EUR-SDR</option>
+                <option value="EUR-SOS">EUR-SOS</option>
+                <option value="EUR-STD">EUR-STD</option>
+                <option value="EUR-SVC">EUR-SVC</option>
+                <option value="EUR-SYP">EUR-SYP</option>
+                <option value="EUR-SZL">EUR-SZL</option>
+                <option value="EUR-TND">EUR-TND</option>
+                <option value="EUR-TTD">EUR-TTD</option>
+                <option value="EUR-TWD">EUR-TWD</option>
+                <option value="EUR-TZS">EUR-TZS</option>
+                <option value="EUR-UAH">EUR-UAH</option>
+                <option value="EUR-UGX">EUR-UGX</option>
+                <option value="EUR-UYU">EUR-UYU</option>
+                <option value="EUR-UZS">EUR-UZS</option>
+                <option value="EUR-VEF">EUR-VEF</option>
+                <option value="EUR-VND">EUR-VND</option>
+                <option value="EUR-XAF">EUR-XAF</option>
+                <option value="EUR-XOF">EUR-XOF</option>
+                <option value="EUR-XPF">EUR-XPF</option>
+                <option value="EUR-ZMK">EUR-ZMK</option>
+                <option value="GHS-EUR">GHS-EUR</option>
+                <option value="NZD-EUR">NZD-EUR</option>
+                <option value="SGD-EUR">SGD-EUR</option>
+                <option value="AED-EUR">AED-EUR</option>
+                <option value="DKK-EUR">DKK-EUR</option>
+                <option value="EUR-XCD">EUR-XCD</option>
+                <option value="HKD-EUR">HKD-EUR</option>
+                <option value="MXN-EUR">MXN-EUR</option>
+                <option value="NOK-EUR">NOK-EUR</option>
+                <option value="PLN-EUR">PLN-EUR</option>
+                <option value="RUB-EUR">RUB-EUR</option>
+                <option value="SAR-EUR">SAR-EUR</option>
+                <option value="SEK-EUR">SEK-EUR</option>
+                <option value="TRY-EUR">TRY-EUR</option>
+                <option value="TWD-EUR">TWD-EUR</option>
+                <option value="ZAR-EUR">ZAR-EUR</option>
+                <option value="MAD-EUR">MAD-EUR</option>
+                <option value="KRW-EUR">KRW-EUR</option>
+                <option value="EGP-EUR">EGP-EUR</option>
+                <option value="EUR-MZN">EUR-MZN</option>
+                <option value="INR-EUR">INR-EUR</option>
+                <option value="JOD-EUR">JOD-EUR</option>
+                <option value="KWD-EUR">KWD-EUR</option>
+                <option value="EUR-AZN">EUR-AZN</option>
+                <option value="EUR-AMD">EUR-AMD</option>
+                <option value="EUR-TJS">EUR-TJS</option>
+                <option value="EUR-RUB">EUR-RUB</option>
+                <option value="HUF-EUR">HUF-EUR</option>
+                <option value="GEL-EUR">GEL-EUR</option>
+                <option value="EUR-GEL">EUR-GEL</option>
+                <option value="IDR-EUR">IDR-EUR</option>
+                <option value="EUR-AOA">EUR-AOA</option>
+                <option value="BYN-EUR">BYN-EUR</option>
+                <option value="XAGG-EUR">XAGG-EUR</option>
+                <option value="PEN-EUR">PEN-EUR</option>
+            </select>
+        <input type="number" name="quantity"  placeholder="Quantidade de registros" />
+        <input type="number" name="days"  placeholder="Quantidade de dias" />
+
+        <hr>
+        <div class="btn-block">
+          <button type="submit">Realizar requisição</button>
+        </div>
+
+        Avisos:
+        São apenas 3 requisições.
+        <br>
+        Para fazer a requisição de cotação por quantidade de registros, preencha o campo de código de cotação e quantidade de registros.
+        <br>
+        Para a requisição por quantidade de dias, preencha o campo de código de cotação e quantidade de dias
+        <br>
+        Para a requisição em tempo real, preencha apenas o campo de código de cotação.
+      </form>
+    </div>
+  </body>
+</html>
