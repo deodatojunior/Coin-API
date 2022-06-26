@@ -15,6 +15,8 @@ def initial_form(request):
             return redirect('get_info_coin_by_code_and_days', coin=code, days=days)
         elif code != "":
             return redirect('get_info_coin_by_code_in_realtime', coin=code)
+        else:
+            return redirect('base')
     return render(request, 'base.html')
 
 
