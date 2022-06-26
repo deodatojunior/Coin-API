@@ -8,10 +8,10 @@
 docker-compose up
 ```
 
-## E acesse esse link:
+## E acesse esse link, o formulário inicial com informações sobre uso:
 
 ```
-http://localhost:8000/
+http://localhost:8000/api/v1/
 ```
 
 ## Documentação do projeto aqui:
